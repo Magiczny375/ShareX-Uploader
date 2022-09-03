@@ -1,8 +1,8 @@
 <?php
 
-$secret_key = "yW5TFt23Xcg23sC"; //Tajny kod
+$secret_key = "yW5TFt23Xcg23sC"; //Tajny kod do zmiany, każdy użytkownik posiada swój
 $sharexdir = "images/"; //To jest twój katalog plików, także link... (jeżeli zostawisz puste będą przesyłane tam gdzie plik up.php)
-$domain_url = 'https://cdn.magicdev.pl/';
+$domain_url = 'https://cdn.magicdev.pl/'; // Adres domeny, na której ma znajdować się uploader.
 $lengthofstring = 8; //Długość randomowej nazwy zrzutu
 $allowedExts = array('png', 'jpg', 'jpeg', 'gif'); //Sprawdzanie typy pliku
 $allowedMime = array('image/png', 'image/jpeg', 'image/pjpeg', 'image/gif');  //Sprawdzanie typy pliku
@@ -16,10 +16,13 @@ function RandomString($length) {
   return $key;
 }
 
+// Sprawdź, czy request zawiera wartość secret.
 if(isset($_POST['secret']))
 {
+  // Sprawdź, czy secret key jest taki sam, jak ten podany przy konfiguracji.
   if($_POST['secret'] == $secret_key)
   {
+    // Ustaw nazwę pliku, wskaż ścieżkę.
     $filename = RandomString($lengthofstring);
     $target_file = $_FILES["sharex"]["name"];
     $fileType = pathinfo($target_file, PATHINFO_EXTENSION);
